@@ -1,0 +1,172 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: IoF Monitoring
+  description: Monitoring Service for IoF
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+basePath: /
+paths:
+  /configurations:
+    get:
+      description: |
+        	Get a list of all configurations for all aquariums, including unconfigured aquariums (id only)
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: ArrayOfConfigurations
+            type: array
+            items:
+              $ref: '#/definitions/Configuration'
+      tags:
+        - configuration
+  /configurations/{config-id}:
+    get:
+      description: |
+        	Get a single configuration
+      operationId: getConfig
+      parameters:
+        -
+          name: config-id
+          in: path
+          description: ID of the configuration
+          required: true
+          type: number
+          format: integer
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Configuration'
+        404:
+          description: Configuration not found
+      tags:
+        - configuration
+    post:
+      description: edit an existing configuration
+      operationId: editConfig
+      parameters:
+        -
+          name: config-id
+          in: path
+          description: ID of the configuration
+          required: true
+          type: number
+          format: integer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful changed the config
+        404:
+          description: Configuration not found
+        500:
+          description: Error processing the config
+      tags:
+        - configuration
+    delete:
+      description: Delete an existing configuration
+      operationId: deleteConfig
+      parameters:
+        -
+          name: config-id
+          in: path
+          description: ID of the configuration
+          required: true
+          type: number
+          format: integer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful deleted the config
+        404:
+          description: Configuration not found
+        500:
+          description: Error deleting the config
+      tags:
+        - configuration
+      
+  /aquariums:
+    get:
+      description: |
+        		Get a list of all offices and acquariums
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: ArrayOfAquriums
+            type: array
+            items:
+              $ref: '#/definitions/Aquarium'
+      tags:
+        - aquarium
+  /aquariums/{aquarium-id}:
+    get:
+      description: |
+        		Get the state of a specific acquarium
+      parameters:
+        -
+          name: aquarium-id
+          in: path
+          description: ID of the aquarium
+          required: true
+          type: number
+          format: integer
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Aquarium'
+        404:
+          description: Aquarium not found
+      tags:
+          - aquarium
+            
+definitions:
+  
+  Configuration:
+    type: object
+    required:
+      - aquarium-id
+    properties:
+      aquarium-id:
+        type: integer
+        format: int64
+      fish-mapping:
+        type: array
+        items:
+          $ref: '#/definitions/FishMapping'
+  FishMapping:
+    type: object
+    required:
+      - fish-id
+    properties:
+      fish-id:
+        type: integer
+        format: int64
+        description: id of the fish
+      office-name:
+        type: string
+        description: name of the office
+        example: "berne"
+  Aquarium:
+    type: object
+    required:
+      - aquarium-id
+      - office-id
+    properties:
+      aquarium-id:
+        type: integer
+        format: int64
+      office-id:
+        type: integer
+        format: int64
+      status:
+        type: string

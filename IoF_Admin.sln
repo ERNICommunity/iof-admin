@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{566AFE5E-AAEE-41BF-8162-AC212D3A2C3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C28E4F8C-4C2E-4870-A2AF-9D5183406CB0}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IoF_Admin", "src\IoF_Admin\IoF_Admin.xproj", "{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{268208C2-84DE-49EF-9B4A-82085E72A7D4}"
+	ProjectSection(SolutionItems) = preProject
+		docs\chriszuercher-IoF_Api-1.0.0-swagger.yaml = docs\chriszuercher-IoF_Api-1.0.0-swagger.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC} = {566AFE5E-AAEE-41BF-8162-AC212D3A2C3B}
+	EndGlobalSection
+EndGlobal
