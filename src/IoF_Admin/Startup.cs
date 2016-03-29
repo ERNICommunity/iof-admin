@@ -7,6 +7,9 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using IoF_Admin.Services;
+using IoF_Admin.Services.Implementations;
+using IoF_Admin.Services.Fakes;
 
 namespace IoF_Admin
 {
@@ -28,6 +31,20 @@ namespace IoF_Admin
         {
             // Add framework services.
             services.AddMvc();
+
+            // Register application services.
+            services.AddTransient<IConfigurationService, ConfigurationService>();
+            services.AddTransient<IAquariumService, AquariumService>();
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            ConfigureServices(services);
+
+            // Register application services.
+            services.AddTransient<IConfigurationService, FakeConfigurationService>();
+            services.AddTransient<IAquariumService, FakeAquariumService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
