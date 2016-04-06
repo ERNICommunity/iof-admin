@@ -16,7 +16,6 @@ paths:
         200:
           description: Successful response
           schema:
-            title: ArrayOfConfigurations
             type: array
             items:
               $ref: '#/definitions/Configuration'
@@ -98,7 +97,6 @@ paths:
         200:
           description: Successful response
           schema:
-            title: ArrayOfAquriums
             type: array
             items:
               $ref: '#/definitions/Aquarium'
