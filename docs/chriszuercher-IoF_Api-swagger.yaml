@@ -21,16 +21,16 @@ paths:
               $ref: '#/definitions/Configuration'
       tags:
         - configuration
-  /configurations/{config-id}:
+  /configurations/{aquarium-id}:
     get:
       description: |
         	Get a single configuration
       operationId: getConfig
       parameters:
-        -
-          name: config-id
+        - 
+          name: aquarium-id
           in: path
-          description: ID of the configuration
+          description: Mac address of the controller
           required: true
           type: string
       responses:
@@ -47,11 +47,18 @@ paths:
       operationId: editConfig
       parameters:
         -
-          name: config-id
+          name: aquarium-id
           in: path
-          description: ID of the configuration
+          description: Mac address of the controller
           required: true
           type: string
+        -
+          name: configuration
+          in: body
+          description: Configuration of the aquarium
+          required: true
+          schema:
+            $ref: '#/definitions/Configuration'
       consumes:
         - application/json
       produces:
@@ -70,9 +77,9 @@ paths:
       operationId: deleteConfig
       parameters:
         -
-          name: config-id
+          name: aquarium-id
           in: path
-          description: ID of the configuration
+          description: Mac address of the controller
           required: true
           type: string
       consumes:
@@ -92,7 +99,7 @@ paths:
   /aquariums:
     get:
       description: |
-        		Get a list of all offices and acquariums
+        		Get a list of all offices and aquariums
       responses:
         200:
           description: Successful response
@@ -105,12 +112,12 @@ paths:
   /aquariums/{aquarium-id}:
     get:
       description: |
-        		Get the state of a specific acquarium
+        		Get the state of a specific aquarium
       parameters:
         -
           name: aquarium-id
           in: path
-          description: ID of the aquarium
+          description: Mac address of the controller
           required: true
           type: string
       responses:
@@ -132,12 +139,15 @@ definitions:
     properties:
       aquarium-id:
         type: string
-        description: mac-address of the controller
-        example: "8F:21:AB:9C:73:4C"
+        description: Mac address of the controller
+        example: "8f:21:ab:9c:73:4c"
       fish-mapping:
         type: array
         items:
           $ref: '#/definitions/FishMapping'
+      office:
+        $ref: '#/definitions/Office'
+        
   FishMapping:
     type: object
     required:
@@ -145,27 +155,42 @@ definitions:
     properties:
       fish-id:
         type: string
-        description: id of the fish
+        description: id/pin of the fish
         example: "1"
-      office-name:
-        type: string
-        description: name of the office
-        example: "berne"
+      office:
+        $ref: '#/definitions/Office'
   Aquarium:
     type: object
     required:
       - aquarium-id
-      - office-id
+      - office
     properties:
       aquarium-id:
         type: string
         description: mac-address of the controller
-        example: "8F:21:AB:9C:73:4C"
-      office-id:
-        type: string
-        description: id off the office
-        example: tbd
+        example: "8f:21:ab:9c:73:4c"
+      office:
+        $ref: '#/definitions/Office'
       status:
         type: string
         description: current status of the aquarium
         example: OK
+  Office:
+    type: object
+    required:
+      - office-id
+      - city
+      - country
+    properties:
+      office-id:
+        type: string
+        description: id of the office
+        example: "1"
+      city:
+        type: string
+        description: city the office is located
+        example: "Berne"
+      country:
+        type: string
+        description: two letter country code of the office
+        example: "CH"
