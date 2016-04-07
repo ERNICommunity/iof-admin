@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using IoF_Admin.Services;
 using IoF_Admin.Services.Implementations;
 using IoF_Admin.Services.Fakes;
+using IoF_Admin.Models;
+using Microsoft.Data.Entity;
 
 namespace IoF_Admin
 {
@@ -31,6 +33,15 @@ namespace IoF_Admin
         {
             // Add framework services.
             services.AddMvc();
+
+            //Add Database
+
+            var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = "C:\\source\\iof-admin\\src\\IoF_Admin\\IoF.db" };
+            var connectionString = connectionStringBuilder.ToString();
+
+            services.AddEntityFramework()
+                .AddSqlite()
+                .AddDbContext<IoFContext>(options => options.UseSqlite(connectionString));
 
             // Register application services.
             services.AddTransient<IConfigurationService, ConfigurationService>();
@@ -71,7 +82,7 @@ namespace IoF_Admin
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Aquarium}/{action=Index}/{id?}");
             });
         }
 
