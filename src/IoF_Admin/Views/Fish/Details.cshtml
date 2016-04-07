@@ -1,0 +1,30 @@
+@model IoF_Admin.Models.Fish
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Fish</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Channel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Channel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecondsActive)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.FishID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
