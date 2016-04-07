@@ -8,8 +8,8 @@ using IoF_Admin.Models;
 namespace IoF_Admin.Migrations
 {
     [DbContext(typeof(IoFContext))]
-    [Migration("20160402104116_IoFinitialMigration")]
-    partial class IoFinitialMigration
+    [Migration("20160407100050_InitialDBModel")]
+    partial class InitialDBModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,8 +23,6 @@ namespace IoF_Admin.Migrations
 
                     b.Property<string>("HardwareID")
                         .IsRequired();
-
-                    b.Property<string>("IP");
 
                     b.Property<bool>("IsActive");
 
@@ -44,6 +42,9 @@ namespace IoF_Admin.Migrations
                         .IsRequired();
 
                     b.Property<int>("Channel");
+
+                    b.Property<int?>("OfficeOfficeID")
+                        .IsRequired();
 
                     b.Property<int>("SecondsActive");
 
@@ -65,8 +66,7 @@ namespace IoF_Admin.Migrations
                     b.Property<string>("CountryCode")
                         .IsRequired();
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("OfficeID");
                 });
@@ -83,6 +83,10 @@ namespace IoF_Admin.Migrations
                     b.HasOne("IoF_Admin.Models.Aquarium")
                         .WithMany()
                         .HasForeignKey("AquariumAquariumID");
+
+                    b.HasOne("IoF_Admin.Models.Office")
+                        .WithMany()
+                        .HasForeignKey("OfficeOfficeID");
                 });
         }
     }

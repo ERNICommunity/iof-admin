@@ -9,7 +9,7 @@ namespace IoF_Admin.Models
     public class Fish
     {
         [ScaffoldColumn(false)]
-        public string FishID { get; set; }
+        public int FishID { get; set; }
 
         [Required]
         [Display(Name = "Channel")]

@@ -27,7 +27,7 @@ namespace IoF_Admin.Controllers
         }
 
         // GET: Aquarium/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -64,7 +64,7 @@ namespace IoF_Admin.Controllers
         }
 
         // GET: Aquarium/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -95,7 +95,7 @@ namespace IoF_Admin.Controllers
 
         // GET: Aquarium/Delete/5
         [ActionName("Delete")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -114,7 +114,7 @@ namespace IoF_Admin.Controllers
         // POST: Aquarium/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
             _context.Aquariums.Remove(aquarium);

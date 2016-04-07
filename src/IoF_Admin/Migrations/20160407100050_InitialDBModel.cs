@@ -4,7 +4,7 @@ using Microsoft.Data.Entity.Migrations;
 
 namespace IoF_Admin.Migrations
 {
-    public partial class IoFinitialMigration : Migration
+    public partial class InitialDBModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,7 @@ namespace IoF_Admin.Migrations
                     ContactPerson = table.Column<string>(nullable: true),
                     ContactPhone = table.Column<string>(nullable: true),
                     CountryCode = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,6 @@ namespace IoF_Admin.Migrations
                     AquariumID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     HardwareID = table.Column<string>(nullable: false),
-                    IP = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     OfficeOfficeID = table.Column<int>(nullable: true)
@@ -54,6 +53,7 @@ namespace IoF_Admin.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     AquariumAquariumID = table.Column<int>(nullable: false),
                     Channel = table.Column<int>(nullable: false),
+                    OfficeOfficeID = table.Column<int>(nullable: false),
                     SecondsActive = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -64,6 +64,12 @@ namespace IoF_Admin.Migrations
                         column: x => x.AquariumAquariumID,
                         principalTable: "Aquarium",
                         principalColumn: "AquariumID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Fish_Office_OfficeOfficeID",
+                        column: x => x.OfficeOfficeID,
+                        principalTable: "Office",
+                        principalColumn: "OfficeID",
                         onDelete: ReferentialAction.Cascade);
                 });
         }

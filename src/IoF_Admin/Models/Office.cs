@@ -9,7 +9,7 @@ namespace IoF_Admin.Models
     public class Office
     {
         [ScaffoldColumn(false)]
-        public string OfficeID { get; set; }
+        public int OfficeID { get; set; }
 
         [Display(Name = "Office Name")]
         public string Name { get; set; }

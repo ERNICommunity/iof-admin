@@ -10,7 +10,7 @@ namespace IoF_Admin.Models
     public class Aquarium
     {
         [ScaffoldColumn(false)]
-        public string AquariumID { get; set; }
+        public int AquariumID { get; set; }
 
         [Display(Name = "Aquarium Name")]
         public string Name { get; set; }
