@@ -13,7 +13,7 @@ namespace IoF_Admin.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public Aquarium GetConfiguration(int ID)
+        public Aquarium GetConfiguration(string aquariumMac)
         {
             throw new NotImplementedException();
         }

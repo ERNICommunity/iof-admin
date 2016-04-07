@@ -9,6 +9,6 @@ namespace IoF_Admin.Services
     public interface IAquariumService
     {
         List<Aquarium> GetAquariums();
-        Aquarium GetAquarium(int ID);
+        Aquarium GetAquarium(string aquariumMac);
     }
 }

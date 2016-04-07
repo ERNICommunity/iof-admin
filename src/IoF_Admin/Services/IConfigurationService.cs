@@ -9,7 +9,7 @@ namespace IoF_Admin.Services
     public interface IConfigurationService
     {
         List<Aquarium> GetConfigurations();
-        Aquarium GetConfiguration(int ID);
+        Aquarium GetConfiguration(string aquariumMac);
         bool SetConfiguration(Aquarium aquarium);
         bool DeleteConfiguration(Aquarium aquarium);
     }

@@ -8,7 +8,7 @@ namespace IoF_Admin.Services.Fakes
 {
     public class FakeAquariumService : IAquariumService
     {
-        public Aquarium GetAquarium(int ID)
+        public Aquarium GetAquarium(string aquariumMac)
         {
             throw new NotImplementedException();
         }
