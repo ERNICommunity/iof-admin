@@ -11,7 +11,6 @@ namespace IoF_Admin.Models
         [ScaffoldColumn(false)]
         public string OfficeID { get; set; }
 
-        [Required]
         [Display(Name = "Office Name")]
         public string Name { get; set; }
 
