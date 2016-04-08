@@ -1,16 +1,16 @@
 @model IoF_Admin.Models.Fish
 
 @{
-    ViewData["Title"] = "Create new Fish";
+    ViewData["Title"] = "Create";
 }
 
-<h2>Create new Fish</h2>
+<h2>Create</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
         <h4>Fish</h4>
         <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Channel" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -28,17 +28,21 @@
         <div class="form-group">
             <label asp-for="Office" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @*<select asp-for="OfficeId" asp-items="ViewBag.Offices"></select>*@
                 @{ var offices = (IEnumerable<SelectListItem>)ViewData["Offices"]; }
-                <select asp-for="OfficeId" asp-items="offices" class="form-control"></select>
+                <select asp-for="OfficeId" asp-items="offices" class="form-control">
+                    <option>Please select one</option>
+                </select>
+                <span asp-validation-for="Office" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Aquarium" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @*<select asp-for="OfficeId" asp-items="ViewBag.Offices"></select>*@
                 @{ var aquariums = (IEnumerable<SelectListItem>)ViewData["Aquariums"]; }
-                <select asp-for="AquariumId" asp-items="aquariums" class="form-control"></select>
+                <select asp-for="AquariumId" asp-items="aquariums" class="form-control">
+                    <option>Please select one</option>
+                </select>
+                <span asp-validation-for="Aquarium" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
