@@ -16,6 +16,15 @@ namespace IoF_Admin.Models
         {
 
             //TODO: Try new SqliteConnection($"Data Source={ApplicationData.Current.LocalFolder.Path}/test.db");
+            /**
+             *       string databaseFilePath = "SkillDB.db";
+      try {
+          databaseFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, databaseFilePath);
+      } catch (InvalidOperationException) { }
+
+      optionsBuilder.UseSqlite($"Data source={databaseFilePath}");
+             * */
+
             optionsBuilder.UseSqlite("Filename=C:\\source\\iof-admin\\src\\IoF_Admin\\IoF.db");
         }
 
