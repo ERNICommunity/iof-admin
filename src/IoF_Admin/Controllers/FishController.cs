@@ -42,6 +42,9 @@ namespace IoF_Admin.Controllers
         // GET: Fish/Create
         public IActionResult Create()
         {
+            ViewBag.Offices = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
+            ViewBag.Aquariums = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString");
+
             return View();
         }
 
@@ -50,7 +53,28 @@ namespace IoF_Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Fish fish)
         {
-            if (ModelState.IsValid)
+            if(fish.AquariumId > 0)
+            {
+                var aquarium = _context.Aquariums.First(o => o.AquariumID == fish.AquariumId);
+                if (aquarium != null)
+                {
+                    fish.Aquarium = aquarium;
+                }
+
+            }
+            if(fish.OfficeId > 0)
+            {
+                var office = _context.Offices.First(o => o.OfficeID == fish.OfficeId);
+                if (office != null)
+                {
+                    fish.Office = office;
+                }
+            }
+
+            //We modified the model so we need to revalidate it.
+            ModelState.Clear();
+            
+            if (TryValidateModel(fish) && ModelState.IsValid)
             {
                 _context.Fishes.Add(fish);
                 await _context.SaveChangesAsync();

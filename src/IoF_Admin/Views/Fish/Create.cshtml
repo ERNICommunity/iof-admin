@@ -1,10 +1,10 @@
 @model IoF_Admin.Models.Fish
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create new Fish";
 }
 
-<h2>Create</h2>
+<h2>Create new Fish</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
@@ -23,6 +23,22 @@
             <div class="col-md-10">
                 <input asp-for="SecondsActive" class="form-control" />
                 <span asp-validation-for="SecondsActive" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Office" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @*<select asp-for="OfficeId" asp-items="ViewBag.Offices"></select>*@
+                @{ var offices = (IEnumerable<SelectListItem>)ViewData["Offices"]; }
+                <select asp-for="OfficeId" asp-items="offices" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Aquarium" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @*<select asp-for="OfficeId" asp-items="ViewBag.Offices"></select>*@
+                @{ var aquariums = (IEnumerable<SelectListItem>)ViewData["Aquariums"]; }
+                <select asp-for="AquariumId" asp-items="aquariums" class="form-control"></select>
             </div>
         </div>
         <div class="form-group">
