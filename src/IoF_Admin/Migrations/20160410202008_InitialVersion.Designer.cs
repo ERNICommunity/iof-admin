@@ -8,7 +8,7 @@ using IoF_Admin.Models;
 namespace IoF_Admin.Migrations
 {
     [DbContext(typeof(IoFContext))]
-    [Migration("20160410151442_InitialVersion")]
+    [Migration("20160410202008_InitialVersion")]
     partial class InitialVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace IoF_Admin.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OfficeId");
+                    b.Property<int>("OfficeID");
 
                     b.HasKey("AquariumID");
                 });
@@ -38,11 +38,11 @@ namespace IoF_Admin.Migrations
                     b.Property<int>("FishID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AquariumId");
+                    b.Property<int>("AquariumID");
 
                     b.Property<int>("Channel");
 
-                    b.Property<int>("OfficeId");
+                    b.Property<int>("OfficeID");
 
                     b.Property<int>("SecondsActive");
 
@@ -73,18 +73,18 @@ namespace IoF_Admin.Migrations
                 {
                     b.HasOne("IoF_Admin.Models.Office")
                         .WithMany()
-                        .HasForeignKey("OfficeId");
+                        .HasForeignKey("OfficeID");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Fish", b =>
                 {
                     b.HasOne("IoF_Admin.Models.Aquarium")
                         .WithMany()
-                        .HasForeignKey("AquariumId");
+                        .HasForeignKey("AquariumID");
 
                     b.HasOne("IoF_Admin.Models.Office")
                         .WithMany()
-                        .HasForeignKey("OfficeId");
+                        .HasForeignKey("OfficeID");
                 });
         }
     }

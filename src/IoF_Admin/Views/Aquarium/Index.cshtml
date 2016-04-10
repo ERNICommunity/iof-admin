@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Office.City)
+            @Html.DisplayNameFor(model => model.Office.OfficeString)
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Office.City)
+            @Html.DisplayFor(modelItem => item.Office.OfficeString)
         </td>
         <td>
             <a asp-action="Edit" asp-route-id="@item.AquariumID">Edit</a> |

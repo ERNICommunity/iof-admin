@@ -31,7 +31,7 @@ namespace IoF_Admin.Controllers
                 return HttpNotFound();
             }
 
-            Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
+            Fish fish = await _context.Fishes.Include(f => f.Aquarium).Include(f => f.Office).SingleAsync(m => m.FishID == id);
             if (fish == null)
             {
                 return HttpNotFound();
@@ -131,13 +131,13 @@ namespace IoF_Admin.Controllers
         {            
             if (fish == null)
             {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
-                ViewBag.AquariumId = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString");
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
+                ViewBag.AquariumID = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString");
             }
             else
             {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City", fish.OfficeId);
-                ViewBag.AquariumId = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString", fish.AquariumId);
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City", fish.OfficeID);
+                ViewBag.AquariumID = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString", fish.AquariumID);
             }
         }
     }

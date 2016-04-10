@@ -19,10 +19,11 @@ namespace IoF_Admin.Models
         public int SecondsActive { get; set; }
 
         public Aquarium Aquarium { get; set; }
-        public int AquariumId { get; set; }
+        public int AquariumID { get; set; }
 
         public Office Office { get;  set;}
-        public int OfficeId { get; set; }
+        public int OfficeID { get; set; }
+
     }
 }
     

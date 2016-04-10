@@ -35,7 +35,7 @@ namespace IoF_Admin.Controllers
                 return HttpNotFound();
             }
 
-            Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
+            Aquarium aquarium = await _context.Aquariums.Include(a => a.Office).Include(a => a.Fishes).SingleAsync(m => m.AquariumID == id);
             if (aquarium == null)
             {
                 return HttpNotFound();
@@ -131,12 +131,12 @@ namespace IoF_Admin.Controllers
         {
             if (aquarium == null)
             {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
 
             }
             else
             {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City", aquarium.OfficeId);
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City", aquarium.OfficeID);
             }
         }
     }
