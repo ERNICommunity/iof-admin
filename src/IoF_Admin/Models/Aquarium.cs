@@ -23,6 +23,7 @@ namespace IoF_Admin.Models
         public bool IsActive { get; set; }
 
         public Office Office { get; set; }
+        public int OfficeId { get; set; }
 
         public List<Fish> Fishes { get; set; }
 
@@ -32,6 +33,7 @@ namespace IoF_Admin.Models
          * They are not mapped to database fields and not persisted (unmapped)
          * */
         [NotMapped]
+        [Display(Name = "Aquarium")]
         public string AquariumString
         {
             get { return string.Format("{0} - {1}", this.AquariumID, this.Name); }

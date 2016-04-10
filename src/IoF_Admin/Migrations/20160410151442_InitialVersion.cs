@@ -33,17 +33,17 @@ namespace IoF_Admin.Migrations
                     HardwareID = table.Column<string>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    OfficeOfficeID = table.Column<int>(nullable: true)
+                    OfficeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Aquarium", x => x.AquariumID);
                     table.ForeignKey(
-                        name: "FK_Aquarium_Office_OfficeOfficeID",
-                        column: x => x.OfficeOfficeID,
+                        name: "FK_Aquarium_Office_OfficeId",
+                        column: x => x.OfficeId,
                         principalTable: "Office",
                         principalColumn: "OfficeID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
                 name: "Fish",

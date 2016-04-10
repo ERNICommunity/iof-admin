@@ -10,7 +10,7 @@
     <div class="form-horizontal">
         <h4>Aquarium</h4>
         <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="HardwareID" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -31,6 +31,16 @@
             <div class="col-md-10">
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Office" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @{ var offices = (IEnumerable<SelectListItem>)ViewData["OfficeId"]; }
+                <select asp-for="OfficeId" asp-items="offices" class="form-control">
+                    <option>Please select one</option>
+                </select>
+                <span asp-validation-for="Office" class="text-danger" />
             </div>
         </div>
         <div class="form-group">

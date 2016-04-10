@@ -4,30 +4,26 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using IoF_Admin.Models;
-using IoF_Admin.Services;
 
 namespace IoF_Admin.Controllers
 {
-    public class AquariumController : Controller
+    public class AquariaController : Controller
     {
-        [FromServices]
-        public IConfigurationService ConfigurationService { get; set; }
-
         private IoFContext _context;
 
-        public AquariumController(IoFContext context)
+        public AquariaController(IoFContext context)
         {
             _context = context;    
         }
 
-        // GET: Aquarium
+        // GET: Aquaria
         public async Task<IActionResult> Index()
         {
             var ioFContext = _context.Aquariums.Include(a => a.Office);
             return View(await ioFContext.ToListAsync());
         }
 
-        // GET: Aquarium/Details/5
+        // GET: Aquaria/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,14 +40,14 @@ namespace IoF_Admin.Controllers
             return View(aquarium);
         }
 
-        // GET: Aquarium/Create
+        // GET: Aquaria/Create
         public IActionResult Create()
         {
-            FillDropdownData();
+            ViewData["OfficeId"] = new SelectList(_context.Offices, "OfficeID", "Office");
             return View();
         }
 
-        // POST: Aquarium/Create
+        // POST: Aquaria/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Aquarium aquarium)
@@ -62,11 +58,11 @@ namespace IoF_Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            FillDropdownData(aquarium);
+            ViewData["OfficeId"] = new SelectList(_context.Offices, "OfficeID", "Office", aquarium.OfficeId);
             return View(aquarium);
         }
 
-        // GET: Aquarium/Edit/5
+        // GET: Aquaria/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,11 +75,11 @@ namespace IoF_Admin.Controllers
             {
                 return HttpNotFound();
             }
-            FillDropdownData(aquarium);
+            ViewData["OfficeId"] = new SelectList(_context.Offices, "OfficeID", "Office", aquarium.OfficeId);
             return View(aquarium);
         }
 
-        // POST: Aquarium/Edit/5
+        // POST: Aquaria/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Aquarium aquarium)
@@ -94,11 +90,11 @@ namespace IoF_Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            FillDropdownData(aquarium);
+            ViewData["OfficeId"] = new SelectList(_context.Offices, "OfficeID", "Office", aquarium.OfficeId);
             return View(aquarium);
         }
 
-        // GET: Aquarium/Delete/5
+        // GET: Aquaria/Delete/5
         [ActionName("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -116,7 +112,7 @@ namespace IoF_Admin.Controllers
             return View(aquarium);
         }
 
-        // POST: Aquarium/Delete/5
+        // POST: Aquaria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -125,19 +121,6 @@ namespace IoF_Admin.Controllers
             _context.Aquariums.Remove(aquarium);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
-        }
-
-        private void FillDropdownData(Aquarium aquarium = null)
-        {
-            if (aquarium == null)
-            {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
-
-            }
-            else
-            {
-                ViewBag.OfficeId = new SelectList(_context.Offices.ToList(), "OfficeID", "City", aquarium.OfficeId);
-            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace IoF_Admin.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("OfficeOfficeID");
+                    b.Property<int>("OfficeId");
 
                     b.HasKey("AquariumID");
                 });
@@ -72,7 +72,7 @@ namespace IoF_Admin.Migrations
                 {
                     b.HasOne("IoF_Admin.Models.Office")
                         .WithMany()
-                        .HasForeignKey("OfficeOfficeID");
+                        .HasForeignKey("OfficeId");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Fish", b =>
