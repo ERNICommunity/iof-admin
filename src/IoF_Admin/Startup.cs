@@ -12,11 +12,14 @@ using IoF_Admin.Services.Implementations;
 using IoF_Admin.Services.Fakes;
 using IoF_Admin.Models;
 using Microsoft.Data.Entity;
+using System.IO;
 
 namespace IoF_Admin
 {
     public class Startup
     {
+        private string path = "";
+
         public Startup(IHostingEnvironment env)
         {
             // Set up configuration sources.
@@ -24,6 +27,8 @@ namespace IoF_Admin
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            this.path = env.WebRootPath;
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -36,7 +41,14 @@ namespace IoF_Admin
 
             //Add Database
 
-            var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = "C:\\source\\iof-admin\\src\\IoF_Admin\\IoF.db" };
+            string databaseFilePath = "IoF.db";
+            try
+            {
+                databaseFilePath = Path.Combine(this.path, databaseFilePath);
+            }
+            catch { }
+
+            var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = databaseFilePath };
             var connectionString = connectionStringBuilder.ToString();
 
             services.AddEntityFramework()

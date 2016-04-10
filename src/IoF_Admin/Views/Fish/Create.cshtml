@@ -28,7 +28,7 @@
         <div class="form-group">
             <label asp-for="Office" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @{ var offices = (IEnumerable<SelectListItem>)ViewData["Offices"]; }
+                @{ var offices = (IEnumerable<SelectListItem>)ViewData["OfficeId"]; }
                 <select asp-for="OfficeId" asp-items="offices" class="form-control">
                     <option>Please select one</option>
                 </select>
@@ -38,7 +38,7 @@
         <div class="form-group">
             <label asp-for="Aquarium" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @{ var aquariums = (IEnumerable<SelectListItem>)ViewData["Aquariums"]; }
+                @{ var aquariums = (IEnumerable<SelectListItem>)ViewData["AquariumId"]; }
                 <select asp-for="AquariumId" asp-items="aquariums" class="form-control">
                     <option>Please select one</option>
                 </select>

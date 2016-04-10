@@ -8,7 +8,6 @@ namespace IoF_Admin.Models
 {
     public class Office
     {
-        [ScaffoldColumn(false)]
         public int OfficeID { get; set; }
 
         [Display(Name = "Office Name")]
@@ -27,6 +26,6 @@ namespace IoF_Admin.Models
 
         [Display(Name = "Contact Phone")]
         public string ContactPhone { get; set; }
-        
+
     }
 }

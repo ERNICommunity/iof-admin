@@ -4,7 +4,7 @@ using Microsoft.Data.Entity.Migrations;
 
 namespace IoF_Admin.Migrations
 {
-    public partial class InitialDBModel : Migration
+    public partial class InitialVersion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,23 +51,23 @@ namespace IoF_Admin.Migrations
                 {
                     FishID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AquariumAquariumID = table.Column<int>(nullable: false),
+                    AquariumId = table.Column<int>(nullable: false),
                     Channel = table.Column<int>(nullable: false),
-                    OfficeOfficeID = table.Column<int>(nullable: false),
+                    OfficeId = table.Column<int>(nullable: false),
                     SecondsActive = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Fish", x => x.FishID);
                     table.ForeignKey(
-                        name: "FK_Fish_Aquarium_AquariumAquariumID",
-                        column: x => x.AquariumAquariumID,
+                        name: "FK_Fish_Aquarium_AquariumId",
+                        column: x => x.AquariumId,
                         principalTable: "Aquarium",
                         principalColumn: "AquariumID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Fish_Office_OfficeOfficeID",
-                        column: x => x.OfficeOfficeID,
+                        name: "FK_Fish_Office_OfficeId",
+                        column: x => x.OfficeId,
                         principalTable: "Office",
                         principalColumn: "OfficeID",
                         onDelete: ReferentialAction.Cascade);

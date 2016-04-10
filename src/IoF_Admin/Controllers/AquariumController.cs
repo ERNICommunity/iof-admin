@@ -114,7 +114,7 @@ namespace IoF_Admin.Controllers
         // POST: Aquarium/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
             _context.Aquariums.Remove(aquarium);

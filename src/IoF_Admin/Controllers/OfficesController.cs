@@ -110,7 +110,7 @@ namespace IoF_Admin.Controllers
         // POST: Offices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Office office = await _context.Offices.SingleAsync(m => m.OfficeID == id);
             _context.Offices.Remove(office);
