@@ -44,10 +44,15 @@ namespace IoF_Admin
             string databaseFilePath = "IoF.db";
             try
             {
-                databaseFilePath = Path.Combine(this.path, databaseFilePath);
+                databaseFilePath = Path.Combine(this.path, databaseFilePath);                
             }
-            catch { }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error configuraing database: {0}", ex.Message);
+                databaseFilePath = ".\\wwwroot\\" + databaseFilePath;
+            }
 
+            Console.WriteLine("Creating database: {0}", databaseFilePath);
             var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = databaseFilePath };
             var connectionString = connectionStringBuilder.ToString();
 
