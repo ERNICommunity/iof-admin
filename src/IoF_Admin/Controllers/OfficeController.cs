@@ -7,11 +7,11 @@ using IoF_Admin.Models;
 
 namespace IoF_Admin.Controllers
 {
-    public class OfficesController : Controller
+    public class OfficeController : Controller
     {
         private IoFContext _context;
 
-        public OfficesController(IoFContext context)
+        public OfficeController(IoFContext context)
         {
             _context = context;    
         }

@@ -26,12 +26,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">IoF Admin</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <img src="~/images/logo-erni.png" />
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Aquarium" asp-action="Index">Aquariums</a></li>
-                    <li><a asp-controller="Offices" asp-action="Index">Offices</a></li>
+                    <li><a asp-controller="Office" asp-action="Index">Offices</a></li>
                     <li><a asp-controller="Fish" asp-action="Index">Fishes</a></li>
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>

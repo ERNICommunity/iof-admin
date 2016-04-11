@@ -15,14 +15,14 @@ namespace IoF_Admin.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Welcome to the world of Fishes.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact the IoF Team if you are interested in this cool project.";
 
             return View();
         }
