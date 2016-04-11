@@ -210,10 +210,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
 /src/IoF_Admin/wwwroot/js/site.min.js
 /src/IoF_Admin/wwwroot/css/site.min.css
-/src/IoF_Admin/wwwroot/css
-/src/IoF_Admin/wwwroot
-/src/IoF_Admin/Migrations/20160408143146_ForeignKeys.Designer.cs
-/src/IoF_Admin/Migrations/20160408143146_ForeignKeys.cs
-/src/IoF_Admin/IoF.db
