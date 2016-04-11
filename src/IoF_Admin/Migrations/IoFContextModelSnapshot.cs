@@ -27,7 +27,7 @@ namespace IoF_Admin.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("OfficeOfficeID");
+                    b.Property<int>("OfficeID");
 
                     b.HasKey("AquariumID");
                 });
@@ -37,13 +37,11 @@ namespace IoF_Admin.Migrations
                     b.Property<int>("FishID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AquariumAquariumID")
-                        .IsRequired();
+                    b.Property<int>("AquariumID");
 
                     b.Property<int>("Channel");
 
-                    b.Property<int?>("OfficeOfficeID")
-                        .IsRequired();
+                    b.Property<int>("OfficeID");
 
                     b.Property<int>("SecondsActive");
 
@@ -74,18 +72,18 @@ namespace IoF_Admin.Migrations
                 {
                     b.HasOne("IoF_Admin.Models.Office")
                         .WithMany()
-                        .HasForeignKey("OfficeOfficeID");
+                        .HasForeignKey("OfficeID");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Fish", b =>
                 {
                     b.HasOne("IoF_Admin.Models.Aquarium")
                         .WithMany()
-                        .HasForeignKey("AquariumAquariumID");
+                        .HasForeignKey("AquariumID");
 
                     b.HasOne("IoF_Admin.Models.Office")
                         .WithMany()
-                        .HasForeignKey("OfficeOfficeID");
+                        .HasForeignKey("OfficeID");
                 });
         }
     }

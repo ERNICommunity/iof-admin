@@ -19,7 +19,8 @@ namespace IoF_Admin.Controllers
         // GET: Fish
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fishes.ToListAsync());
+            var ioFContext = _context.Fishes.Include(f => f.Aquarium).Include(f => f.Office);
+            return View(await ioFContext.ToListAsync());
         }
 
         // GET: Fish/Details/5
@@ -30,7 +31,7 @@ namespace IoF_Admin.Controllers
                 return HttpNotFound();
             }
 
-            Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
+            Fish fish = await _context.Fishes.Include(f => f.Aquarium).Include(f => f.Office).SingleAsync(m => m.FishID == id);
             if (fish == null)
             {
                 return HttpNotFound();
@@ -51,36 +52,14 @@ namespace IoF_Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Fish fish)
-        {
-            FillDropdownData(fish);
-
-            if (fish.AquariumId > 0)
-            {
-                var aquarium = _context.Aquariums.First(o => o.AquariumID == fish.AquariumId);
-                if (aquarium != null)
-                {
-                    fish.Aquarium = aquarium;
-                }
-
-            }
-            if(fish.OfficeId > 0)
-            {
-                var office = _context.Offices.First(o => o.OfficeID == fish.OfficeId);
-                if (office != null)
-                {
-                    fish.Office = office;
-                }
-            }
-
-            //We modified the model so we need to revalidate it.
-            ModelState.Clear();
-            
-            if (TryValidateModel(fish) && ModelState.IsValid)
+        {            
+            if (ModelState.IsValid)
             {
                 _context.Fishes.Add(fish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            FillDropdownData(fish);
             return View(fish);
         }
 
@@ -99,7 +78,6 @@ namespace IoF_Admin.Controllers
             }
 
             FillDropdownData(fish);
-
             return View(fish);
         }
 
@@ -108,35 +86,15 @@ namespace IoF_Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Fish fish)
         {
-            FillDropdownData(fish);
-
-            if (fish.AquariumId > 0)
-            {
-                var aquarium = _context.Aquariums.First(o => o.AquariumID == fish.AquariumId);
-                if (aquarium != null)
-                {
-                    fish.Aquarium = aquarium;
-                }
-
-            }
-            if (fish.OfficeId > 0)
-            {
-                var office = _context.Offices.First(o => o.OfficeID == fish.OfficeId);
-                if (office != null)
-                {
-                    fish.Office = office;
-                }
-            }
-
-            //We modified the model so we need to revalidate it.
-            ModelState.Clear();
-
-            if (TryValidateModel(fish) && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Update(fish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            FillDropdownData(fish);
+                      
             return View(fish);
         }
 
@@ -161,7 +119,7 @@ namespace IoF_Admin.Controllers
         // POST: Fish/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
             _context.Fishes.Remove(fish);
@@ -169,17 +127,17 @@ namespace IoF_Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        private async void FillDropdownData(Fish fish = null)
+        private void FillDropdownData(Fish fish = null)
         {            
             if (fish == null)
             {
-                ViewBag.Offices = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
-                ViewBag.Aquariums = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString");
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
+                ViewBag.AquariumID = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString");
             }
             else
             {
-                ViewBag.Offices = new SelectList(_context.Offices.ToList(), "OfficeID", "City", fish.OfficeId);
-                ViewBag.Aquariums = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString", fish.AquariumId);
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City", fish.OfficeID);
+                ViewBag.AquariumID = new SelectList(_context.Aquariums.ToList(), "AquariumID", "AquariumString", fish.AquariumID);
             }
         }
     }

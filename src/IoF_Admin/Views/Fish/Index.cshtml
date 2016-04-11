@@ -12,6 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Office.OfficeString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aquarium.AquariumString)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Channel)
         </th>
         <th>
@@ -22,6 +28,12 @@
     
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Office.OfficeString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aquarium.AquariumString)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Channel)
         </td>

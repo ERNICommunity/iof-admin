@@ -10,7 +10,6 @@ namespace IoF_Admin.Models
 {
     public class Aquarium
     {
-        [ScaffoldColumn(false)]
         public int AquariumID { get; set; }
 
         [Display(Name = "Aquarium Name")]
@@ -24,6 +23,8 @@ namespace IoF_Admin.Models
         public bool IsActive { get; set; }
 
         public Office Office { get; set; }
+        public int OfficeID { get; set; }
+
         public List<Fish> Fishes { get; set; }
 
         #region NotMapped Properties
@@ -32,12 +33,7 @@ namespace IoF_Admin.Models
          * They are not mapped to database fields and not persisted (unmapped)
          * */
         [NotMapped]
-        public int OfficeId { get; set; }
-
-        [NotMapped]
-        public List<int> FishIds { get; set; }
-
-        [NotMapped]
+        [Display(Name = "Aquarium")]
         public string AquariumString
         {
             get { return string.Format("{0} - {1}", this.AquariumID, this.Name); }

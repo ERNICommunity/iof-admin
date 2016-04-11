@@ -28,6 +28,20 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Office.OfficeString)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Office.OfficeString)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fishes)
+        </dt>
+        <dd>
+            <ul>
+                @Html.DisplayFor(model => model.Fishes)
+            </ul>
+        </dd>
     </dl>
 </div>
 <p>

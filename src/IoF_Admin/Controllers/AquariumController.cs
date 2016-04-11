@@ -23,7 +23,8 @@ namespace IoF_Admin.Controllers
         // GET: Aquarium
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Aquariums.ToListAsync());
+            var ioFContext = _context.Aquariums.Include(a => a.Office);
+            return View(await ioFContext.ToListAsync());
         }
 
         // GET: Aquarium/Details/5
@@ -34,7 +35,7 @@ namespace IoF_Admin.Controllers
                 return HttpNotFound();
             }
 
-            Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
+            Aquarium aquarium = await _context.Aquariums.Include(a => a.Office).Include(a => a.Fishes).SingleAsync(m => m.AquariumID == id);
             if (aquarium == null)
             {
                 return HttpNotFound();
@@ -46,6 +47,7 @@ namespace IoF_Admin.Controllers
         // GET: Aquarium/Create
         public IActionResult Create()
         {
+            FillDropdownData();
             return View();
         }
 
@@ -60,6 +62,7 @@ namespace IoF_Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            FillDropdownData(aquarium);
             return View(aquarium);
         }
 
@@ -76,6 +79,7 @@ namespace IoF_Admin.Controllers
             {
                 return HttpNotFound();
             }
+            FillDropdownData(aquarium);
             return View(aquarium);
         }
 
@@ -90,6 +94,7 @@ namespace IoF_Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            FillDropdownData(aquarium);
             return View(aquarium);
         }
 
@@ -114,12 +119,25 @@ namespace IoF_Admin.Controllers
         // POST: Aquarium/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
             _context.Aquariums.Remove(aquarium);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private void FillDropdownData(Aquarium aquarium = null)
+        {
+            if (aquarium == null)
+            {
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City");
+
+            }
+            else
+            {
+                ViewBag.OfficeID = new SelectList(_context.Offices.ToList(), "OfficeID", "City", aquarium.OfficeID);
+            }
         }
     }
 }
