@@ -8,12 +8,14 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     </environment>
 </head>
 <body>
@@ -34,7 +36,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Aquarium" asp-action="Index">Aquariums</a></li>
                     <li><a asp-controller="Office" asp-action="Index">Offices</a></li>
-                    <li><a asp-controller="Fish" asp-action="Index">Fishes</a></li>
+                    <li><a asp-controller="Fish" asp-action="Index">Fish</a></li>
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
@@ -45,7 +47,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2016 - IoF Team Berne</p>
+            <p><span class="fa fa-copyright"></span> 2016 - IoF Team Berne</p>
         </footer>
     </div>
 

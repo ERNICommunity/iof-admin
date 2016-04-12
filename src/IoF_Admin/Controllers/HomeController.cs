@@ -15,7 +15,7 @@ namespace IoF_Admin.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Welcome to the world of Fishes.";
+            ViewData["Message"] = "Welcome to the world of Fish.";
 
             return View();
         }
