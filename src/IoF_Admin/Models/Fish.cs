@@ -12,10 +12,12 @@ namespace IoF_Admin.Models
         public int FishID { get; set; }
 
         [Required]
+        [Range(1, 1000)]
         [Display(Name = "Channel")]
         public int Channel { get; set; }
 
         [Display(Name = "Activation Time")]
+        [Range(1, 10)]
         public int SecondsActive { get; set; }
 
         public Aquarium Aquarium { get; set; }
