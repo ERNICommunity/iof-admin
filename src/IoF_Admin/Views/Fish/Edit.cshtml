@@ -15,14 +15,14 @@
         <div class="form-group">
             <label asp-for="Channel" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Channel" class="form-control" />
+                <input asp-for="Channel" class="form-control" min="1" max="1000" />
                 <span asp-validation-for="Channel" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="SecondsActive" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="SecondsActive" class="form-control" />
+                <input asp-for="SecondsActive" class="form-control" min="1" max="10" />
                 <span asp-validation-for="SecondsActive" class="text-danger" />
             </div>
         </div>
