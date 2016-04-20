@@ -99,7 +99,7 @@ namespace IoF_Admin
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Aquarium}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
