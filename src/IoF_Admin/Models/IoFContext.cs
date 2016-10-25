@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,14 +13,21 @@ namespace IoF_Admin.Models
         public DbSet<Fish> Fishes { get; set; }
         public DbSet<Office> Offices { get; set; }
 
+        private bool created = false;
+
+        public IoFContext(DbContextOptions<IoFContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
