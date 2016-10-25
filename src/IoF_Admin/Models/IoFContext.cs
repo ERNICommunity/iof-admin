@@ -13,8 +13,6 @@ namespace IoF_Admin.Models
         public DbSet<Fish> Fishes { get; set; }
         public DbSet<Office> Offices { get; set; }
 
-        private bool created = false;
-
         public IoFContext(DbContextOptions<IoFContext> options) : base(options)
         {
             Database.EnsureCreated();
