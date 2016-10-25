@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using IoF_Admin.Models;
 
 namespace IoF_Admin.Controllers
@@ -27,13 +27,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Office office = await _context.Offices.SingleAsync(m => m.OfficeID == id);
             if (office == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(office);
@@ -64,13 +64,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Office office = await _context.Offices.SingleAsync(m => m.OfficeID == id);
             if (office == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(office);
         }
@@ -95,13 +95,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Office office = await _context.Offices.SingleAsync(m => m.OfficeID == id);
             if (office == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(office);

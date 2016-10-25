@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ using IoF_Admin.Services;
 using IoF_Admin.Services.Implementations;
 using IoF_Admin.Services.Fakes;
 using IoF_Admin.Models;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace IoF_Admin
@@ -24,6 +24,7 @@ namespace IoF_Admin
         {
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -40,25 +41,12 @@ namespace IoF_Admin
             services.AddMvc();
 
             //Add Database
-
             string databaseFilePath = "IoF.db";
-            try
-            {
-                databaseFilePath = Path.Combine(this.path, databaseFilePath);                
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Error configuraing database: {0}", ex.Message);
-                databaseFilePath = ".\\wwwroot\\" + databaseFilePath;
-            }
-
-            Console.WriteLine("Creating database: {0}", databaseFilePath);
             var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = databaseFilePath };
             var connectionString = connectionStringBuilder.ToString();
 
-            services.AddEntityFramework()
-                .AddSqlite()
-                .AddDbContext<IoFContext>(options => options.UseSqlite(connectionString));
+
+            services.AddDbContext<IoFContext>(options =>options.UseSqlite(connectionString));
 
             // Register application services.
             services.AddTransient<IConfigurationService, ConfigurationService>();
@@ -91,8 +79,6 @@ namespace IoF_Admin
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseIISPlatformHandler();
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -102,8 +88,5 @@ namespace IoF_Admin
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

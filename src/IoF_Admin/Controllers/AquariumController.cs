@@ -1,18 +1,16 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using IoF_Admin.Models;
 using IoF_Admin.Services;
+
 
 namespace IoF_Admin.Controllers
 {
     public class AquariumController : Controller
     {
-        [FromServices]
-        public IConfigurationService ConfigurationService { get; set; }
-
         private IoFContext _context;
 
         public AquariumController(IoFContext context)
@@ -32,13 +30,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Aquarium aquarium = await _context.Aquariums.Include(a => a.Office).Include(a => a.Fishes).SingleAsync(m => m.AquariumID == id);
             if (aquarium == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(aquarium);
@@ -71,13 +69,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
             if (aquarium == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             FillDropdownData(aquarium);
             return View(aquarium);
@@ -104,13 +102,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Aquarium aquarium = await _context.Aquariums.SingleAsync(m => m.AquariumID == id);
             if (aquarium == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(aquarium);

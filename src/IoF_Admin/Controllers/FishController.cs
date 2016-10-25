@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using IoF_Admin.Models;
 
 namespace IoF_Admin.Controllers
@@ -28,13 +28,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Fish fish = await _context.Fishes.Include(f => f.Aquarium).Include(f => f.Office).SingleAsync(m => m.FishID == id);
             if (fish == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(fish);
@@ -68,13 +68,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
             if (fish == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             FillDropdownData(fish);
@@ -104,13 +104,13 @@ namespace IoF_Admin.Controllers
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
             if (fish == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(fish);
