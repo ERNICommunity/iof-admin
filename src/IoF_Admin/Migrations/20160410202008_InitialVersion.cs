@@ -9,48 +9,50 @@ namespace IoF_Admin.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Office",
+                name: "Offices",
                 columns: table => new
                 {
                     OfficeID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Autoincrement", true),
                     City = table.Column<string>(nullable: false),
                     ContactPerson = table.Column<string>(nullable: true),
                     ContactPhone = table.Column<string>(nullable: true),
-                    CountryCode = table.Column<string>(nullable: false),
+                    CountryCode = table.Column<string>(maxLength: 2, nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Office", x => x.OfficeID);
+                    table.PrimaryKey("PK_Offices", x => x.OfficeID);
                 });
+
             migrationBuilder.CreateTable(
-                name: "Aquarium",
+                name: "Aquariums",
                 columns: table => new
                 {
                     AquariumID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Autoincrement", true),
                     HardwareID = table.Column<string>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    OfficeID = table.Column<int>(nullable: false)
+                    OfficeID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Aquarium", x => x.AquariumID);
+                    table.PrimaryKey("PK_Aquariums", x => x.AquariumID);
                     table.ForeignKey(
-                        name: "FK_Aquarium_Office_OfficeID",
+                        name: "FK_Aquariums_Offices_OfficeID",
                         column: x => x.OfficeID,
-                        principalTable: "Office",
+                        principalTable: "Offices",
                         principalColumn: "OfficeID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
             migrationBuilder.CreateTable(
-                name: "Fish",
+                name: "Fishes",
                 columns: table => new
                 {
                     FishID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Autoincrement", true),
                     AquariumID = table.Column<int>(nullable: false),
                     Channel = table.Column<int>(nullable: false),
                     OfficeID = table.Column<int>(nullable: false),
@@ -58,27 +60,47 @@ namespace IoF_Admin.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fish", x => x.FishID);
+                    table.PrimaryKey("PK_Fishes", x => x.FishID);
                     table.ForeignKey(
-                        name: "FK_Fish_Aquarium_AquariumID",
+                        name: "FK_Fishes_Aquariums_AquariumID",
                         column: x => x.AquariumID,
-                        principalTable: "Aquarium",
+                        principalTable: "Aquariums",
                         principalColumn: "AquariumID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Fish_Office_OfficeID",
+                        name: "FK_Fishes_Offices_OfficeID",
                         column: x => x.OfficeID,
-                        principalTable: "Office",
+                        principalTable: "Offices",
                         principalColumn: "OfficeID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Aquariums_OfficeID",
+                table: "Aquariums",
+                column: "OfficeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fishes_AquariumID",
+                table: "Fishes",
+                column: "AquariumID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fishes_OfficeID",
+                table: "Fishes",
+                column: "OfficeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("Fish");
-            migrationBuilder.DropTable("Aquarium");
-            migrationBuilder.DropTable("Office");
+            migrationBuilder.DropTable(
+                name: "Fishes");
+
+            migrationBuilder.DropTable(
+                name: "Aquariums");
+
+            migrationBuilder.DropTable(
+                name: "Offices");
         }
     }
 }

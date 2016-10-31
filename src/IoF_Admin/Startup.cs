@@ -13,11 +13,14 @@ using IoF_Admin.Services.Fakes;
 using IoF_Admin.Models;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using AutoMapper;
 
 namespace IoF_Admin
 {
     public class Startup
     {
+        private MapperConfiguration mapperConfiguration { get; set; }
+
         private string path = "";
 
         public Startup(IHostingEnvironment env)
@@ -35,6 +38,11 @@ namespace IoF_Admin
             }
 
             Configuration = builder.Build();
+
+            mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+            });
 
             this.path = env.WebRootPath;
         }
@@ -58,6 +66,9 @@ namespace IoF_Admin
             // Register application services.
             services.AddTransient<IConfigurationService, ConfigurationService>();
             services.AddTransient<IAquariumService, AquariumService>();
+
+            //Add Automapper
+            services.AddSingleton<IMapper>(sp => mapperConfiguration.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -66,8 +77,8 @@ namespace IoF_Admin
             ConfigureServices(services);
 
             // Register application services.
-            services.AddTransient<IConfigurationService, FakeConfigurationService>();
-            services.AddTransient<IAquariumService, FakeAquariumService>();
+            //services.AddTransient<IConfigurationService, FakeConfigurationService>();
+            //services.AddTransient<IAquariumService, FakeAquariumService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

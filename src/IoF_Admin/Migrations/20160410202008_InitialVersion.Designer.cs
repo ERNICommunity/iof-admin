@@ -14,7 +14,7 @@ namespace IoF_Admin.Migrations
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
+                .HasAnnotation("ProductVersion", "1.0.1");
 
             modelBuilder.Entity("IoF_Admin.Models.Aquarium", b =>
                 {
@@ -28,9 +28,13 @@ namespace IoF_Admin.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OfficeID");
+                    b.Property<int?>("OfficeID");
 
                     b.HasKey("AquariumID");
+
+                    b.HasIndex("OfficeID");
+
+                    b.ToTable("Aquariums");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Fish", b =>
@@ -47,6 +51,12 @@ namespace IoF_Admin.Migrations
                     b.Property<int>("SecondsActive");
 
                     b.HasKey("FishID");
+
+                    b.HasIndex("AquariumID");
+
+                    b.HasIndex("OfficeID");
+
+                    b.ToTable("Fishes");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Office", b =>
@@ -62,29 +72,34 @@ namespace IoF_Admin.Migrations
                     b.Property<string>("ContactPhone");
 
                     b.Property<string>("CountryCode")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 2);
 
                     b.Property<string>("Name");
 
                     b.HasKey("OfficeID");
+
+                    b.ToTable("Offices");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Aquarium", b =>
                 {
-                    b.HasOne("IoF_Admin.Models.Office")
+                    b.HasOne("IoF_Admin.Models.Office", "Office")
                         .WithMany()
                         .HasForeignKey("OfficeID");
                 });
 
             modelBuilder.Entity("IoF_Admin.Models.Fish", b =>
                 {
-                    b.HasOne("IoF_Admin.Models.Aquarium")
-                        .WithMany()
-                        .HasForeignKey("AquariumID");
+                    b.HasOne("IoF_Admin.Models.Aquarium", "Aquarium")
+                        .WithMany("Fishes")
+                        .HasForeignKey("AquariumID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("IoF_Admin.Models.Office")
+                    b.HasOne("IoF_Admin.Models.Office", "Office")
                         .WithMany()
-                        .HasForeignKey("OfficeID");
+                        .HasForeignKey("OfficeID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

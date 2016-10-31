@@ -23,7 +23,7 @@ namespace IoF_Admin.Models
         public bool IsActive { get; set; }
 
         public Office Office { get; set; }
-        public int OfficeID { get; set; }
+        public int? OfficeID { get; set; }
 
         public List<Fish> Fishes { get; set; }
 
