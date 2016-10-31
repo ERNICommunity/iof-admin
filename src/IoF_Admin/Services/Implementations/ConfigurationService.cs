@@ -25,6 +25,7 @@ namespace IoF_Admin.Services.Implementations
             if(toDelete != null)
             {
                 context.Aquariums.Remove(toDelete);
+                log.LogInformation("Deleted aquarium with HardwareID: {0}", aquarium.HardwareID);
                 return context.SaveChanges() > 0 ? true : false;
             }
 
@@ -38,12 +39,21 @@ namespace IoF_Admin.Services.Implementations
                 .Include(a => a.Office)
                 .SingleOrDefault(a => a.HardwareID.Equals(aquariumMac));
 
-            if(aquarium == null)
+            var emptyAquarium = new Aquarium() { HardwareID = aquariumMac, IsActive = false };
+            if(aquarium != null && !aquarium.IsActive)
             {
-                //NO aquarium with given ID was found, add it with empt config to DB
-                context.Aquariums.Add(new Aquarium() { HardwareID = aquariumMac, IsActive = false });
+                // Given aquarium is not active, we return an empty config
+                log.LogDebug("Return empty aquarium because aquarium with HardwareID {0} is not active.", aquariumMac);
+                return emptyAquarium;
+            }
+            
+            if (aquarium == null)
+            {
+                //NO aquarium with given ID was found so we add a new one to the DB
+                context.Aquariums.Add(emptyAquarium);
                 if (context.SaveChanges() > 0)
                 {
+                    log.LogInformation("Added new aquarium with HardwareID: {0}", aquariumMac);
                     aquarium = context.Aquariums
                                 .Include(a => a.Fishes)
                                 .Include(a => a.Office)
@@ -60,6 +70,7 @@ namespace IoF_Admin.Services.Implementations
             return context.Aquariums
                 .Include(a => a.Fishes)
                 .Include(a => a.Office)
+                .Where(a => a.IsActive == true)
                 .ToList();
         }
 
@@ -68,6 +79,7 @@ namespace IoF_Admin.Services.Implementations
             if (aquarium != null)
             {
                 context.Update(aquarium);
+                log.LogDebug("Update aquarium with HardwareID: {0}", aquarium.HardwareID);
                 return context.SaveChanges() > 0 ? true : false;
             }
 

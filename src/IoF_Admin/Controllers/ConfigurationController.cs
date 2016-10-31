@@ -8,8 +8,6 @@ using AutoMapper;
 using IoF_Admin.Services;
 using IoF_Admin.ResourceModels;
 
-// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace IoF_Admin.Controllers
 {
     [Route("api/[controller]")]
@@ -26,7 +24,7 @@ namespace IoF_Admin.Controllers
             mapper = map;
         }
 
-        // GET: api/values
+        // GET: api/configuration
         [HttpGet]
         public IEnumerable<ConfigurationResourceModel> Get()
         {
@@ -35,7 +33,7 @@ namespace IoF_Admin.Controllers
             return resourceModel;
         }
 
-        // GET api/values/5
+        // GET api/configuration/5
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
@@ -44,19 +42,19 @@ namespace IoF_Admin.Controllers
             return Json(resourceModel);
         }
 
-        // POST api/values
+        // POST api/configuration
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/configuration/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/configuration/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
