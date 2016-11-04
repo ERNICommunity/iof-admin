@@ -4,16 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IoF_Admin.Models;
+using IoF_Admin.Services;
 
 namespace IoF_Admin.Controllers
 {
     public class FishController : Controller
     {
         private IoFContext _context;
+        private readonly IConfigurationService _configService;
 
-        public FishController(IoFContext context)
+        public FishController(IoFContext context, IConfigurationService configService)
         {
-            _context = context;    
+            _context = context;
+            _configService = configService;
         }
 
         // GET: Fish
@@ -57,6 +60,7 @@ namespace IoF_Admin.Controllers
             {
                 _context.Fishes.Add(fish);
                 await _context.SaveChangesAsync();
+                _configService.PublishConfiguration(fish.AquariumID);
                 return RedirectToAction("Index");
             }
             FillDropdownData(fish);
@@ -90,6 +94,7 @@ namespace IoF_Admin.Controllers
             {
                 _context.Update(fish);
                 await _context.SaveChangesAsync();
+                _configService.PublishConfiguration(fish.AquariumID);
                 return RedirectToAction("Index");
             }
 
@@ -124,6 +129,7 @@ namespace IoF_Admin.Controllers
             Fish fish = await _context.Fishes.SingleAsync(m => m.FishID == id);
             _context.Fishes.Remove(fish);
             await _context.SaveChangesAsync();
+            _configService.PublishConfiguration(fish.AquariumID);
             return RedirectToAction("Index");
         }
 

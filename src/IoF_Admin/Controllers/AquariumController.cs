@@ -12,10 +12,12 @@ namespace IoF_Admin.Controllers
     public class AquariumController : Controller
     {
         private IoFContext _context;
+        private readonly IConfigurationService _configService;
 
-        public AquariumController(IoFContext context)
+        public AquariumController(IoFContext context, IConfigurationService configService)
         {
-            _context = context;    
+            _context = context;
+            _configService = configService; 
         }
 
         // GET: Aquarium
@@ -58,6 +60,7 @@ namespace IoF_Admin.Controllers
             {
                 _context.Aquariums.Add(aquarium);
                 await _context.SaveChangesAsync();
+                _configService.PublishConfiguration(aquarium.HardwareID);
                 return RedirectToAction("Index");
             }
             FillDropdownData(aquarium);
@@ -90,6 +93,7 @@ namespace IoF_Admin.Controllers
             {
                 _context.Update(aquarium);
                 await _context.SaveChangesAsync();
+                _configService.PublishConfiguration(aquarium.HardwareID);
                 return RedirectToAction("Index");
             }
             FillDropdownData(aquarium);

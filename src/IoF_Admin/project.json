@@ -36,6 +36,8 @@
     },
     "BundlerMinifier.Core": "2.2.281",
     "AutoMapper": "5.1.1",
+    "M2MqttDotnetCore": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
   },
 
   "commands": {
