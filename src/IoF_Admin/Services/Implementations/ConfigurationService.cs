@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IoF_Admin.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using M2Mqtt;
+using M2Mqtt.Messages;
+using AutoMapper;
+using IoF_Admin.Models;
+using IoF_Admin.ResourceModels;
 
 namespace IoF_Admin.Services.Implementations
 {
@@ -12,20 +19,24 @@ namespace IoF_Admin.Services.Implementations
     {
         private readonly IoFContext context;
         private readonly ILogger<ConfigurationService> log;
+        private readonly IMapper mapper;
+        private readonly AppSettings settings;
 
-        public ConfigurationService(IoFContext db, ILogger<ConfigurationService> logger)
+        public ConfigurationService(IoFContext db, ILogger<ConfigurationService> logger, IMapper map, IOptions<AppSettings> appSettings)
         {
             context = db;
             log = logger;
+            mapper = map;
+            settings = appSettings.Value;
         }
 
-        public bool DeleteConfiguration(Aquarium aquarium)
+        public bool DeleteConfiguration(string aquariumMac)
         {
-            var toDelete = context.Aquariums.Single(a => a.AquariumID.Equals(aquarium.AquariumID));
+            var toDelete = context.Aquariums.Single(a => a.HardwareID.Equals(aquariumMac));
             if(toDelete != null)
             {
                 context.Aquariums.Remove(toDelete);
-                log.LogInformation("Deleted aquarium with HardwareID: {0}", aquarium.HardwareID);
+                log.LogInformation("Deleted aquarium with HardwareID: {0}", aquariumMac);
                 return context.SaveChanges() > 0 ? true : false;
             }
 
@@ -61,7 +72,7 @@ namespace IoF_Admin.Services.Implementations
                    
                 }
             }
-
+            publishConfiguration(aquarium.AquariumID);
             return aquarium;
         }
 
@@ -74,13 +85,42 @@ namespace IoF_Admin.Services.Implementations
                 .ToList();
         }
 
-        public bool SetConfiguration(Aquarium aquarium)
+        public bool PublishConfiguration(int aquariumID)
         {
+            return publishConfiguration(aquariumID);
+        }
+
+        public bool PublishConfiguration(string aquariumMac)
+        {
+            return publishConfiguration(0, aquariumMac);
+        }
+
+        private bool publishConfiguration(int aquariumID = 0, string aquariumMac ="")
+        {
+            var aquarium = context.Aquariums
+                                    .Include(a => a.Fishes)
+                                    .Include(a => a.Office)
+                                    .SingleOrDefault(a => a.AquariumID == aquariumID || a.HardwareID.Equals(aquariumMac));
+
             if (aquarium != null)
             {
-                context.Update(aquarium);
+                ConfigurationResourceModel resourceModel = mapper.Map<ConfigurationResourceModel>(aquarium);
+                //iof/config/<Device-ID>
+                string path = string.Format("{0}/{1}/{2}", settings.MQTTPrefix, "config", aquarium.HardwareID);
+                string payload = JsonConvert.SerializeObject(resourceModel,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+
+                MqttClient client = new MqttClient(settings.MQTTBroker);
+                string clientId = Guid.NewGuid().ToString();
+                client.Connect(clientId);
+
+                // publish a message topic with QoS 1 and retain false
+                client.Publish(path.ToLower(), System.Text.Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
+                log.LogDebug("Publish MQTT topic {0} with payload {1} to {2}", path, payload, settings.MQTTBroker);
+
                 log.LogDebug("Update aquarium with HardwareID: {0}", aquarium.HardwareID);
-                return context.SaveChanges() > 0 ? true : false;
+                return true;
             }
 
             return false;

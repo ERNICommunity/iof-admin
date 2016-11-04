@@ -13,23 +13,23 @@ namespace IoF_Admin.Controllers
     [Route("api/[controller]")]
     public class ConfigurationController : Controller
     {
-        private readonly IConfigurationService aquariumService;
-        private readonly ILogger<ConfigurationController> log;
-        private readonly IMapper mapper;
+        private readonly IConfigurationService _configService;
+        private readonly ILogger<ConfigurationController> _log;
+        private readonly IMapper _mapper;
 
-        public ConfigurationController(IConfigurationService service, ILogger<ConfigurationController> logger, IMapper map)
+        public ConfigurationController(IConfigurationService service, ILogger<ConfigurationController> logger, IMapper mapper)
         {
-            aquariumService = service;
-            log = logger;
-            mapper = map;
+            _configService = service;
+            _log = logger;
+            _mapper = mapper;
         }
 
         // GET: api/configuration
         [HttpGet]
         public IEnumerable<ConfigurationResourceModel> Get()
         {
-            var aquariums = aquariumService.GetConfigurations();
-            List<ConfigurationResourceModel> resourceModel = mapper.Map<List<ConfigurationResourceModel>>(aquariums);
+            var aquariums = _configService.GetConfigurations();
+            List<ConfigurationResourceModel> resourceModel = _mapper.Map<List<ConfigurationResourceModel>>(aquariums);
             return resourceModel;
         }
 
@@ -37,8 +37,8 @@ namespace IoF_Admin.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var aquarium = aquariumService.GetConfiguration(id);
-            ConfigurationResourceModel resourceModel = mapper.Map<ConfigurationResourceModel>(aquarium);
+            var aquarium = _configService.GetConfiguration(id);
+            ConfigurationResourceModel resourceModel = _mapper.Map<ConfigurationResourceModel>(aquarium);
             return Json(resourceModel);
         }
 

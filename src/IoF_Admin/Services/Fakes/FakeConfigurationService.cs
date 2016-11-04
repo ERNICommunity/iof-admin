@@ -36,12 +36,17 @@ namespace IoF_Admin.Services.Fakes
                                      };
         }
 
-        public bool SetConfiguration(Aquarium aquarium)
+        public bool PublishConfiguration(int aquariumID)
         {
             return true;
         }
 
-        public bool DeleteConfiguration(Aquarium aquarium)
+        public bool PublishConfiguration(string aquariumMac)
+        {
+            return true;
+        }
+
+        public bool DeleteConfiguration(string aquariumMac)
         {
             return true;
         }

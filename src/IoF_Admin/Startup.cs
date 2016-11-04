@@ -59,7 +59,8 @@ namespace IoF_Admin
             string databaseFilePath = "IoF.db";
             var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = databaseFilePath };
             var connectionString = connectionStringBuilder.ToString();
-
+            
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddDbContext<IoFContext>(options =>options.UseSqlite(connectionString));
 
