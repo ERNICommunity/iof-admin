@@ -21,14 +21,14 @@ paths:
               $ref: '#/definitions/Configuration'
       tags:
         - configuration
-  /configurations/{aquarium-id}:
+  /configurations/{aquariumId}:
     get:
       description: |
         	Get a single configuration
       operationId: getConfig
       parameters:
         - 
-          name: aquarium-id
+          name: aquariumId
           in: path
           description: Mac address of the controller
           required: true
@@ -47,7 +47,7 @@ paths:
       operationId: editConfig
       parameters:
         -
-          name: aquarium-id
+          name: aquariumId
           in: path
           description: Mac address of the controller
           required: true
@@ -77,7 +77,7 @@ paths:
       operationId: deleteConfig
       parameters:
         -
-          name: aquarium-id
+          name: aquariumId
           in: path
           description: Mac address of the controller
           required: true
@@ -109,13 +109,13 @@ paths:
               $ref: '#/definitions/Aquarium'
       tags:
         - aquarium
-  /aquariums/{aquarium-id}:
+  /aquariums/{aquariumId}:
     get:
       description: |
         		Get the state of a specific aquarium
       parameters:
         -
-          name: aquarium-id
+          name: aquariumId
           in: path
           description: Mac address of the controller
           required: true
@@ -135,25 +135,25 @@ definitions:
   Configuration:
     type: object
     required:
-      - aquarium-id
+      - aquariumId
     properties:
-      aquarium-id:
+      aquariumId:
         type: string
         description: Mac address of the controller
         example: "8f:21:ab:9c:73:4c"
-      fish-mapping:
+      fish:
         type: array
         items:
-          $ref: '#/definitions/FishMapping'
+          $ref: '#/definitions/Fish'
       office:
         $ref: '#/definitions/Office'
         
-  FishMapping:
+  Fish:
     type: object
     required:
-      - fish-id
+      - fishId
     properties:
-      fish-id:
+      fishId:
         type: string
         description: id/pin of the fish
         example: "1"
@@ -162,10 +162,10 @@ definitions:
   Aquarium:
     type: object
     required:
-      - aquarium-id
+      - aquariumId
       - office
     properties:
-      aquarium-id:
+      aquariumId:
         type: string
         description: mac-address of the controller
         example: "8f:21:ab:9c:73:4c"
@@ -178,11 +178,11 @@ definitions:
   Office:
     type: object
     required:
-      - office-id
+      - officeId
       - city
       - country
     properties:
-      office-id:
+      officeId:
         type: string
         description: id of the office
         example: "1"
