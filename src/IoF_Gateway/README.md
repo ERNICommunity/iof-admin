@@ -8,7 +8,9 @@ It's a simple python script which can be run in any environment connect to the i
 ## Docker
 The gateway can be run in a docker container using docker or docker-compose (second is recommended).
 
-'sudo docker-compose build' to build the image
-'sudo docker-compose run' to run it with console output
-'sudo docker-compose run -d' to run it with console output
+`sudo docker-compose build` to build the image
+
+`sudo docker-compose run` to run it with console output
+
+`sudo docker-compose run -d` to run it with console output
 
