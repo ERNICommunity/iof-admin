@@ -12,5 +12,5 @@ The gateway can be run in a docker container using docker or docker-compose (sec
 
 `sudo docker-compose run` to run it with console output
 
-`sudo docker-compose run -d` to run it with console output
+`sudo docker-compose run -d` to run it in daemon mode (use `sudo docker-compose logs` to see the output)
 
