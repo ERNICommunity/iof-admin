@@ -144,7 +144,7 @@ definitions:
         type: string
         description: Mac address of the controller
         example: "8f:21:ab:9c:73:4c"
-      fish-mapping:
+      fish:
         type: array
         items:
           $ref: '#/definitions/Fish'
