@@ -1,5 +1,4 @@
-import urllib
-import urllib2
+import urllib.request
 import json
 import paho.mqtt.client as mqtt
 
@@ -13,13 +12,14 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+    print(msg.topic+" "+str(msg.payload,'utf-8'))
     #wjdata = json.loads(msg.payload)
     #print(wjdata['aquariumId'])
-    url = "http://iof.azurewebsites.net/api/configuration/"+str(msg.payload)
-    print url
-    content = urllib2.urlopen(url).read()
-    print content
+    url = "http://iof.azurewebsites.net/api/configuration/"+str(msg.payload,'utf-8')
+    print(url)
+    with urllib.request.urlopen(url) as response:
+        content = response.read()
+        print(content)
 
 client = mqtt.Client()
 client.on_connect = on_connect

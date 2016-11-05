@@ -1,0 +1,8 @@
+gw:
+  build: .
+  command: python StartupTask.py
+  volumes:
+   - .:/code
+  environment:
+   - PYTHONUNBUFFERED=0
+   
