@@ -55,6 +55,7 @@
   <ItemGroup>
     <Content Include="docker-compose.yml" />
     <Content Include="Dockerfile" />
+    <Content Include="README.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
