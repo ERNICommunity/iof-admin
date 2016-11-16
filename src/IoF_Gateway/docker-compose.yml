@@ -1,4 +1,5 @@
 gw:
+  restart: always
   build: .
   command: python StartupTask.py
   volumes:
