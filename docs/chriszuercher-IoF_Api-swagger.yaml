@@ -6,9 +6,12 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-basePath: /
+host: iof.azurewebsites.net
+basePath: /api
+schemes:
+  - http
 paths:
-  /configurations:
+  /configuration:
     get:
       description: |
         	Get a list of all configurations for all aquariums, including unconfigured aquariums (id only)
@@ -21,7 +24,7 @@ paths:
               $ref: '#/definitions/Configuration'
       tags:
         - configuration
-  /configurations/{aquariumId}:
+  /configuration/{aquariumId}:
     get:
       description: |
         	Get a single configuration

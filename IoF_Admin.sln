@@ -7,7 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{566AFE5E-AAE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C28E4F8C-4C2E-4870-A2AF-9D5183406CB0}"
 	ProjectSection(SolutionItems) = preProject
+		build.sh = build.sh
+		docker-compose.yml = docker-compose.yml
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IoF_Admin", "src\IoF_Admin\IoF_Admin.xproj", "{9307EE6B-DB5E-4C25-B0AF-D4A9680ECAAC}"
