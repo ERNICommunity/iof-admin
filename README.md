@@ -1,4 +1,7 @@
 # iof_admin
+
+:warning: **REPOSITORY NOT ACTIVE SINCE 2017 Dependabot alerts in git security settings disabled**
+
 IoF admin tool
 
  ASP.net core application to configure the IoF things.
